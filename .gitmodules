@@ -1,0 +1,3 @@
+[submodule "FTP-Server-for-ESP8266-ESP32-and-PYBD"]
+	path = FTP-Server-for-ESP8266-ESP32-and-PYBD
+	url = https://github.com/robert-hh/FTP-Server-for-ESP8266-ESP32-and-PYBD.git
