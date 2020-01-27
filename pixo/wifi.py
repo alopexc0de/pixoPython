@@ -23,7 +23,7 @@ if not STA_IF.isconnected():
 
     STA_IF.connect(creds.WIFI_SSID, creds.WIFI_PASSWORD)
     while not STA_IF.isconnected():
-        Pixo().blink_image(WIFI_IMG, False).force_color((200, 40, 40))
+        Pixo().blink_image(WIFI_IMG, (200, 40, 40))
 
         if time.time() - start_time >= MAX_WAIT:
             break

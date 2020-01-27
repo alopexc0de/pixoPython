@@ -81,22 +81,24 @@ class Pixo:
 
         return self
 
-    def blink_image(self, image, show=True, delay=0.3):
+    def blink_image(self, image, force=(), delay=0.3):
         """
             Fills the board with the provided `image`,
             which is a list of tuples containing RGB values
 
-            When `show` is False, the board will not be updated
-            automatically. This is useful if chaining commands
-            together (such as setting the image, and then forcing
-            a specific color for active pixels in the image)
+            When `force` is set, it should be a tuple of
+            RGB values; it will override all colors on the
+            board that are active.
 
             `delay` is a float of how many seconds to wait
             before the board gets blanked out.
 
             To blink multiple times, call this in a loop
         """
-        self.fill_image(image, show)
+        if len(force) > 0:
+            self.fill_image(image)
+        else:
+            self.fill_image(image, False).force_color(force)
         time.sleep(delay)
         self.fill((0, 0, 0))
 
