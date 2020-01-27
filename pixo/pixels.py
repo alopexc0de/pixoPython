@@ -112,6 +112,39 @@ class Pixo:
 
         return self
 
+    def transition_image_random(self, image, delay=0.2):
+        """
+            Changes a random pixel to the value of that
+            pixel on a newly provided `image`.
+
+            `delay` is how many seconds to wait between
+            changing each pixel
+
+            Prevents the same random value from being
+            selected multiple times
+        """
+        already_changed = []
+        while len(already_changed) < TOTAL_DOTS:
+            dot = random.randrange(0, TOTAL_DOTS)
+            if dot not in already_changed:
+                already_changed.append(dot)
+
+                BOARD[dot] = image[dot]
+                time.sleep(delay)
+                BOARD.show()
+            
+        return self
+
+    def transition_image_dissolve(self, delay=0.2):
+        """
+            Randomly sets pixels to black, giving the
+            appearance of it dissolving away into the ether
+
+            `delay` is how many seconds to wait between
+            changing each pixel
+        """
+        return self.transition_image_random((0, 0, 0), delay)
+
     # This doesn't give the desired cycle that a gaming keyboard would
     # def color_cycle(self):
     #     for r in range(100, 200):
