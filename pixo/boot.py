@@ -18,6 +18,5 @@ from helpers import *
 # Setup wifi connection
 import wifi
 
-# Start the web console for easier file management
-import webrepl
-webrepl.start()
+# Start an anonymous FTP server (TODO: Do this on the AP_IF only)
+import uftpd
