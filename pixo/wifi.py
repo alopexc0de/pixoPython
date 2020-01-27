@@ -49,9 +49,7 @@ if not STA_IF.isconnected():
     for network in creds.WIFI_NETWORKS:
         if STA_IF.isconnected():
             break
-        connect(STA_IF, 'Standard',
-                creds.WIFI_NETWORKS[network][0],
-                creds.WIFI_NETWORKS[network][1])
+        connect(STA_IF, 'Standard', network[0], network[1])
 
 # We check this twice to enable AP mode if we failed to connect
 # Normally this happens if the password has been misconfigured,
