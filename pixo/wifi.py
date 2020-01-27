@@ -14,23 +14,6 @@ MAX_WAIT = 5
 STA_IF = network.WLAN(network.STA_IF)
 AP_IF = network.WLAN(network.AP_IF)
 
-# TODO: iterate over known access points and save multiple passwords
-if not STA_IF.isconnected():
-    connect(STA_IF, 'Standard')
-
-# We check this twice to enable AP mode if we failed to connect
-# Normally this happens if the password has been misconfigured,
-# or if the device moves to a different location (more likely)
-if not STA_IF.isconnected():
-    # Disable STA_IF to stop serial spam
-    # You can enable it again by doing `import wifi`
-    # Followed by `wifi.STA_IF.active(True)` - Then you can call the `wifi.connect_standard`
-    # method to try connecting again (after `creds.py` has been fixed)
-    STA_IF.active(False)
-
-    connect(AP_IF, 'Access Point')
-
-
 def connect(interface, interface_name):
     print("Configuring %s interface with credentials from creds.py" % interface_name)
     start_time = time.time()
@@ -54,3 +37,19 @@ def connect(interface, interface_name):
 
     if interface.isconnected():
         Pixo().fill_image(WIFI_IMG, False).force_color((40, 200, 40))
+
+# TODO: iterate over known access points and save multiple passwords
+if not STA_IF.isconnected():
+    connect(STA_IF, 'Standard')
+
+# We check this twice to enable AP mode if we failed to connect
+# Normally this happens if the password has been misconfigured,
+# or if the device moves to a different location (more likely)
+if not STA_IF.isconnected():
+    # Disable STA_IF to stop serial spam
+    # You can enable it again by doing `import wifi`
+    # Followed by `wifi.STA_IF.active(True)` - Then you can call the `wifi.connect_standard`
+    # method to try connecting again (after `creds.py` has been fixed)
+    STA_IF.active(False)
+
+    connect(AP_IF, 'Access Point')
