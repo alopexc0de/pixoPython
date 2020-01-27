@@ -126,7 +126,7 @@ class Pixo:
         already_changed = []
         while len(already_changed) < TOTAL_DOTS:
             dot = random.randrange(0, TOTAL_DOTS)
-            if dot not in already_changed:
+            if dot not in already_changed and not BOARD[dot] == image[dot]:
                 already_changed.append(dot)
 
                 BOARD[dot] = image[dot]
