@@ -20,18 +20,19 @@ def is_connected(interface):
     if interface == AP_IF:
         return (len(interface.status('stations')) > 0)
 
-def connect(interface, interface_name):
+def connect(interface, interface_name, ssid, password):
     print("Configuring %s interface with credentials from creds.py" % interface_name)
     start_time = time.time()
 
     # Start the interface if it's not already
     interface.active(True)
 
+    # Connect to the network
     if interface == STA_IF:
-        STA_IF.connect(creds.WIFI_SSID, creds.WIFI_PASSWORD)
+        STA_IF.connect(ssid, password)
         selected_color = (200, 40, 40)
     elif interface == AP_IF:
-        AP_IF.config(essid=creds.AP_SSID, password=creds.AP_PASSWORD)
+        AP_IF.config(essid=ssid, password=password)
         selected_color = (20, 10, 230)
 
     while not interface.isconnected():
@@ -44,9 +45,13 @@ def connect(interface, interface_name):
     if is_connected(interface):
         Pixo().fill_image(WIFI_IMG, False).force_color((40, 200, 40))
 
-# TODO: iterate over known access points and save multiple passwords
 if not STA_IF.isconnected():
-    connect(STA_IF, 'Standard')
+    for network in creds.WIFI_NETWORKS:
+        if STA_IF.isconnected():
+            break
+        connect(STA_IF, 'Standard',
+                creds.WIFI_NETWORKS[network][0],
+                creds.WIFI_NETWORKS[network][1])
 
 # We check this twice to enable AP mode if we failed to connect
 # Normally this happens if the password has been misconfigured,
@@ -58,4 +63,4 @@ if not STA_IF.isconnected():
     # method to try connecting again (after `creds.py` has been fixed)
     STA_IF.active(False)
 
-    connect(AP_IF, 'Access Point')
+    connect(AP_IF, 'Access Point', creds.AP_SSID, creds.AP_PASSWORD)
