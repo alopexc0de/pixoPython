@@ -95,7 +95,7 @@ class Pixo:
 
             To blink multiple times, call this in a loop
         """
-        if len(force) > 0:
+        if len(force) == 0:
             self.fill_image(image)
         else:
             self.fill_image(image, False).force_color(force)
