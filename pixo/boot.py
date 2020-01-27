@@ -5,7 +5,7 @@
 # esp.osdebug(None)
 
 # Initalize the board
-from board import *
+from board import TOTAL_DOTS, BOARD
 
 # Class that contains display methods, animations, etc
 from pixels import Pixo
