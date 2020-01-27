@@ -1,3 +1,4 @@
 Pipfile.lock
 icons.py
 *.bin
+creds.py
