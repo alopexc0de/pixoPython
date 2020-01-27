@@ -70,7 +70,7 @@ if not STA_IF.isconnected():
 # If anything is connected, and it's been at least 30 seconds, clear the board
 def timeout():
     if is_connected(STA_IF) or is_connected(AP_IF) and time.time() - time_connected > 30:
-        Pixo().clear()
+        Pixo().transition_image_dissolve()
         tim.deinit()
 
 # Check if the timeout is satisfied, every 30s
