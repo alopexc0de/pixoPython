@@ -124,18 +124,23 @@ class Pixo:
             selected multiple times
         """
         already_changed = []
+
+        if image == (0, 0, 0):
+            image = [(0, 0, 0) for _ in range(TOTAL_DOTS)]
+
         while len(already_changed) < TOTAL_DOTS:
             dot = random.randrange(0, TOTAL_DOTS)
-            if dot not in already_changed and not BOARD[dot] == image[dot]:
+            if dot not in already_changed:
                 already_changed.append(dot)
 
-                BOARD[dot] = image[dot]
-                time.sleep(delay)
-                BOARD.show()
+                if not BOARD[dot] == image[dot]:
+                    BOARD[dot] = image[dot]
+                    time.sleep(delay)
+                    BOARD.show()
             
         return self
 
-    def transition_image_dissolve(self, delay=0.2):
+    def transition_image_dissolve(self, delay=0.09):
         """
             Randomly sets pixels to black, giving the
             appearance of it dissolving away into the ether
