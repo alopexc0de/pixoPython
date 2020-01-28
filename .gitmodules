@@ -1,0 +1,3 @@
+[submodule "pixo/micropython-mpu9x50"]
+	path = pixo/micropython-mpu9x50
+	url = https://github.com/micropython-IMU/micropython-mpu9x50.git
