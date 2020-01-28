@@ -67,12 +67,9 @@ if not STA_IF.isconnected():
 
     connect(AP_IF, 'Access Point', creds.AP_SSID, creds.AP_PASSWORD)
 
-# If anything is connected, and it's been at least 30 seconds, clear the board
-def timeout():
-    if is_connected(STA_IF) or is_connected(AP_IF) and time.time() - time_connected > 30:
-        Pixo().transition_image_dissolve()
-        tim.deinit()
-
-# Check if the timeout is satisfied, every 30s
-tim = Timer(-1)
-tim.init(period=30000, mode=Timer.PERIODIC, callback=lambda t:timeout())
+# Clear the board with dissolve animation after 15 seconds
+# We'll assume that the board is showing a green wifi logo
+Timer(-1).init(
+    period=15000,
+    mode=Timer.ONE_SHOT,
+    callback=lambda t: Pixo().transition_image_dissolve())
